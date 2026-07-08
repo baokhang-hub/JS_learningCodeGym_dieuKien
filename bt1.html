@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Luyện tập cấu trúc điều kiện CodeGym</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        .bai-tap {
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        input[type="number"] {
+            width: 120px;
+            padding: 5px;
+            margin-right: 10px;
+        }
+
+        button {
+            padding: 5px 15px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 3px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .ket-qua {
+            color: green;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>CHUỖI BÀI TẬP THỰC HÀNH CODEGYM</h1>
+
+<!-- BÀI 1 -->
+<div class="bai-tap">
+    <h3>Bài 1: Chuyển từ độ C sang độ F</h3>
+    <input type="number" id="doC" placeholder="Nhập độ C">
+    <button onclick="chuyenC_sang_F()">Chuyển đổi</button>
+    <p class="ket-qua" id="kq_bai1"></p>
+</div>
+
+<!-- BÀI 2 -->
+<div class="bai-tap">
+    <h3>Bài 2: Chuyển từ mét sang feet</h3>
+    <input type="number" id="soMet" placeholder="Nhập số mét">
+    <button onclick="chuyenMet_sang_Feet()">Chuyển đổi</button>
+    <p class="ket-qua" id="kq_bai2"></p>
+</div>
+
+<!-- BÀI 3 -->
+<div class="bai-tap">
+    <h3>Bài 3: Tính diện tích hình vuông</h3>
+    <input type="number" id="canhA_HV" placeholder="Nhập độ dài cạnh a">
+    <button onclick="tinhDienTichHinhVuong()">Tính DT</button>
+    <p class="ket-qua" id="kq_bai3"></p>
+</div>
+
+<!-- BÀI 4 -->
+<div class="bai-tap">
+    <h3>Bài 4: Tính diện tích hình chữ nhật</h3>
+    <input type="number" id="canhA_HCN" placeholder="Nhập cạnh a">
+    <input type="number" id="canhB_HCN" placeholder="Nhập cạnh b">
+    <button onclick="tinhDienTichHCN()">Tính DT</button>
+    <p class="ket-qua" id="kq_bai4"></p>
+</div>
+
+<!-- BÀI 5 -->
+<div class="bai-tap">
+    <h3>Bài 5: Tính diện tích tam giác vuông</h3>
+    <input type="number" id="canhA_TGV" placeholder="Nhập cạnh kề a">
+    <input type="number" id="canhB_TGV" placeholder="Nhập cạnh kề b">
+    <button onclick="tinhDienTichTamGiacVuong()">Tính DT</button>
+    <p class="ket-qua" id="kq_bai5"></p>
+</div>
+
+<script>
+    // --- BÀI 1 ---
+    function chuyenC_sang_F() {
+        let c = Number(document.getElementById('doC').value);
+        // Độ C có thể âm (ví dụ thời tiết mùa đông) nên chỉ check xem có nhập dữ liệu chưa
+        if (document.getElementById('doC').value === "") {
+            document.getElementById('kq_bai1').innerText = "Vui lòng nhập giá trị độ C!";
+        } else {
+            let f = c * 9 / 5 + 32;
+            document.getElementById('kq_bai1').innerText = `${c}°C bằng ${f.toFixed(2)}°F`;
+        }
+    }
+
+    // --- BÀI 2 ---
+    function chuyenMet_sang_Feet() {
+        let m = Number(document.getElementById('soMet').value);
+        if (m <= 0) {
+            document.getElementById('kq_bai2').innerText = "Số mét phải lớn hơn 0!";
+        } else {
+            let ft = m * 3.2808;
+            document.getElementById('kq_bai2').innerText = `${m} mét bằng ${ft.toFixed(4)} feet`;
+        }
+    }
+
+    // --- BÀI 3 ---
+    function tinhDienTichHinhVuong() {
+        let a = Number(document.getElementById('canhA_HV').value);
+        if (a <= 0) {
+            document.getElementById('kq_bai3').innerText = "Cạnh hình vuông phải lớn hơn 0!";
+        } else {
+            let s = a * a;
+            document.getElementById('kq_bai3').innerText = `Diện tích hình vuông là: ${s}`;
+        }
+    }
+
+    // --- BÀI 4 ---
+    function tinhDienTichHCN() {
+        let a = Number(document.getElementById('canhA_HCN').value);
+        let b = Number(document.getElementById('canhB_HCN').value);
+        if (a <= 0 || b <= 0) {
+            document.getElementById('kq_bai4').innerText = "Các cạnh hình chữ nhật phải lớn hơn 0!";
+        } else {
+            let s = a * b;
+            document.getElementById('kq_bai4').innerText = `Diện tích hình chữ nhật là: ${s}`;
+        }
+    }
+
+    // --- BÀI 5 ---
+    function tinhDienTichTamGiacVuong() {
+        let a = Number(document.getElementById('canhA_TGV').value);
+        let b = Number(document.getElementById('canhB_TGV').value);
+        if (a <= 0 || b <= 0) {
+            document.getElementById('kq_bai5').innerText = "Các cạnh kề tam giác phải lớn hơn 0!";
+        } else {
+            let s = (a * b) / 2;
+            document.getElementById('kq_bai5').innerText = `Diện tích tam giác vuông là: ${s}`;
+        }
+    }
+</script>
+</body>
+</html>
