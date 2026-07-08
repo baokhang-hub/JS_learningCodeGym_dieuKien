@@ -107,6 +107,49 @@
     <p class="ket-qua" id="kq_bai7"></p>
 </div>
 
+<!-- BÀI 8 -->
+<div class="bai-tap">
+    <h3>Bài 8: Kiểm tra tuổi của một người</h3>
+    <input type="number" id="checkTuoi" placeholder="Nhập một số nguyên">
+    <button onclick="kiemTraTuoi()">Kiểm tra</button>
+    <p class="ket-qua" id="kq_bai8"></p>
+</div>
+
+<!-- BÀI 9 -->
+<div class="bai-tap">
+    <h3>Bài 9: Kiểm tra 3 cạnh của tam giác</h3>
+    <input type="number" id="canh_a" placeholder="Nhập cạnh a">
+    <input type="number" id="canh_b" placeholder="Nhập cạnh b">
+    <input type="number" id="canh_c" placeholder="Nhập cạnh c">
+    <button onclick="kiemTraTamGiac()">Kiểm tra</button>
+    <p class="ket-qua" id="kq_bai9"></p>
+</div>
+
+<!-- BÀI 10 -->
+<div class="bai-tap">
+    <h3>Bài 10: Tính giá điện sinh hoạt (Lũy tiến)</h3>
+    <input type="number" id="soDien" placeholder="Nhập số kWh tiêu thụ">
+    <button onclick="tinhTienDien()">Tính tiền</button>
+    <p class="ket-qua" id="kq_bai10"></p>
+</div>
+
+<!-- BÀI 11 -->
+<div class="bai-tap">
+    <h3>Bài 11: Tính thuế thu nhập cá nhân</h3>
+    <input type="number" id="thuNhap" placeholder="Thu nhập (VND) sau giảm trừ">
+    <button onclick="tinhThueTNCN()">Tính thuế</button>
+    <p class="ket-qua" id="kq_bai11"></p>
+</div>
+
+<!-- BÀI 12 -->
+<div class="bai-tap">
+    <h3>Bài 12: Tính lãi ngân hàng (Lãi kép - Lãi mẹ đẻ lãi con)</h3>
+    <input type="number" id="tienGoc" placeholder="Số tiền gốc (VND)">
+    <input type="number" id="soThang" placeholder="Số tháng gửi">
+    <input type="number" id="laiSuat" placeholder="Lãi suất hàng tháng (%)" step="0.1">
+    <button onclick="tinhLaiNganHang()">Tính lãi</button>
+    <p class="ket-qua" id="kq_bai12"></p>
+</div>
 <script>
     // --- BÀI 1 ---
     function chuyenC_sang_F() {
@@ -231,6 +274,102 @@
                 document.getElementById('kq_bai7').innerText = `Delta = ${delta} > 0. PT có 2 nghiệm phân biệt: x1 = ${x1.toFixed(2)}, x2 = ${x2.toFixed(2)}`;
             }
         }
+    }
+
+    // --- BÀI 8 ---
+    function kiemTraTuoi() {
+        let input = document.getElementById('checkTuoi').value;
+        let tuoi = Number(input);
+
+        // Kiểm tra xem có phải số nguyên không bằng Number.isInteger()
+        if (input === "" || !Number.isInteger(tuoi)) {
+            document.getElementById('kq_bai8').innerText = "Vui lòng nhập vào một số nguyên!";
+            return;
+        }
+
+        // Điều kiện đề bài: lớn hơn 0 và nhỏ hơn 120
+        if (tuoi > 0 && tuoi < 120) {
+            document.getElementById('kq_bai8').innerText = `${tuoi} LÀ số tuổi hợp lệ của một người.`;
+        } else {
+            document.getElementById('kq_bai8').innerText = `${tuoi} KHÔNG PHẢI là số tuổi của một người.`;
+        }
+    }
+
+    // --- BÀI 9 ---
+    function kiemTraTamGiac() {
+        let a = Number(document.getElementById('canh_a').value);
+        let b = Number(document.getElementById('canh_b').value);
+        let c = Number(document.getElementById('canh_c').value);
+
+        if (document.getElementById('canh_a').value === "" || document.getElementById('canh_b').value === "" || document.getElementById('canh_c').value === "") {
+            document.getElementById('kq_bai9').innerText = "Vui lòng nhập đầy đủ cả 3 cạnh!";
+            return;
+        }
+
+        // Gộp tất cả các điều kiện đề bài yêu cầu bằng toán tử &&
+        if (a > 0 && b > 0 && c > 0 && (a + b > c) && (b + c > a) && (a + c > b)) {
+            document.getElementById('kq_bai9').innerText = `Ba số (${a}, ${b}, ${c}) LÀ 3 cạnh của một tam giác.`;
+        } else {
+            document.getElementById('kq_bai9').innerText = `Ba số (${a}, ${b}, ${c}) KHÔNG PHẢI là 3 cạnh của một tam giác.`;
+        }
+    }
+
+    // --- BÀI 10 (Giả định định mức: Bậc 1 (0-50kWh): 1.800đ | Bậc 2 (51-100kWh): 2.000đ | Bậc 3 (>100kWh): 2.500đ) ---
+    function tinhTienDien() {
+        let kwh = Number(document.getElementById('soDien').value);
+        if (kwh < 0 || document.getElementById('soDien').value === "") {
+            document.getElementById('kq_bai10').innerText = "Số điện không hợp lệ!";
+            return;
+        }
+
+        let tienDien = 0;
+        if (kwh <= 50) {
+            tienDien = kwh * 1800;
+        } else if (kwh <= 100) {
+            tienDien = (50 * 1800) + ((kwh - 50) * 2000);
+        } else {
+            tienDien = (50 * 1800) + (50 * 2000) + ((kwh - 100) * 2500);
+        }
+
+        document.getElementById('kq_bai10').innerText = `Tổng tiền điện phải trả: ${tienDien.toLocaleString('vi-VN')} VND`;
+    }
+
+    // --- BÀI 11 (Giả định mức thuế: Dưới 5tr: 5% | Từ 5tr đến 10tr: 10% | Trên 10tr: 15%) ---
+    function tinhThueTNCN() {
+        let thuNhap = Number(document.getElementById('thuNhap').value);
+        if (thuNhap < 0 || document.getElementById('thuNhap').value === "") {
+            document.getElementById('kq_bai11').innerText = "Thu nhập không hợp lệ!";
+            return;
+        }
+
+        let thue = 0;
+        if (thuNhap <= 5000000) {
+            thue = thuNhap * 0.05;
+        } else if (thuNhap <= 10000000) {
+            thue = (5000000 * 0.05) + ((thuNhap - 5000000) * 0.1);
+        } else {
+            thue = (5000000 * 0.05) + (5000000 * 0.1) + ((thuNhap - 10000000) * 0.15);
+        }
+
+        document.getElementById('kq_bai11').innerText = `Thuế thu nhập cá nhân cần nộp: ${thue.toLocaleString('vi-VN')} VND`;
+    }
+
+    // --- BÀI 12 (Công thức lãi kép: Tiền nhận được = Tiền gốc * (1 + lãi suất)^số_tháng) ---
+    function tinhLaiNganHang() {
+        let goc = Number(document.getElementById('tienGoc').value);
+        let thang = Number(document.getElementById('soThang').value);
+        let laiSuatThang = Number(document.getElementById('laiSuat').value) / 100; // Đổi từ % sang số thập phân
+
+        if (goc <= 0 || thang <= 0 || laiSuatThang <= 0) {
+            document.getElementById('kq_bai12').innerText = "Vui lòng nhập các giá trị lớn hơn 0!";
+            return;
+        }
+
+        // Áp dụng công thức lãi kép toán học bằng hàm Math.pow(cơ_số, số_mũ)
+        let tongTien = goc * Math.pow((1 + laiSuatThang), thang);
+        let tienLai = tongTien - goc;
+
+        document.getElementById('kq_bai12').innerText = `Tiền lãi nhận được: ${tienLai.toLocaleString('vi-VN', {maximumFractionDigits: 0})} VND (Tổng gốc + lãi: ${tongTien.toLocaleString('vi-VN', {maximumFractionDigits: 0})} VND)`;
     }
 </script>
 </body>
