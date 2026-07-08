@@ -89,6 +89,24 @@
     <p class="ket-qua" id="kq_bai5"></p>
 </div>
 
+<div class="bai-tap">
+    <h3>Bài 6: Giải phương trình bậc 1 (ax + b = 0)</h3>
+    <input type="number" id="heSoA_B1" placeholder="Nhập hệ số a">
+    <input type="number" id="heSoB_B1" placeholder="Nhập hệ số b">
+    <button onclick="giaiPhuongTrinhBac1()">Giải PT</button>
+    <p class="ket-qua" id="kq_bai6"></p>
+</div>
+
+<!-- BÀI 7 -->
+<div class="bai-tap">
+    <h3>Bài 7: Giải phương trình bậc 2 (ax² + bx + c = 0)</h3>
+    <input type="number" id="heSoA_B2" placeholder="Nhập hệ số a">
+    <input type="number" id="heSoB_B2" placeholder="Nhập hệ số b">
+    <input type="number" id="heSoC_B2" placeholder="Nhập hệ số c">
+    <button onclick="giaiPhuongTrinhBac2()">Giải PT</button>
+    <p class="ket-qua" id="kq_bai7"></p>
+</div>
+
 <script>
     // --- BÀI 1 ---
     function chuyenC_sang_F() {
@@ -145,6 +163,73 @@
         } else {
             let s = (a * b) / 2;
             document.getElementById('kq_bai5').innerText = `Diện tích tam giác vuông là: ${s}`;
+        }
+    }
+
+    // --- BÀI 6 ---
+    function giaiPhuongTrinhBac1() {
+        let a = Number(document.getElementById('heSoA_B1').value);
+        let b = Number(document.getElementById('heSoB_B1').value);
+
+        // Check xem người dùng đã nhập đủ số chưa
+        if (document.getElementById('heSoA_B1').value === "" || document.getElementById('heSoB_B1').value === "") {
+            document.getElementById('kq_bai6').innerText = "Vui lòng nhập đầy đủ hệ số a và b!";
+            return; // Dừng hàm không chạy tiếp bên dưới
+        }
+
+        if (a === 0) {
+            if (b === 0) {
+                document.getElementById('kq_bai6').innerText = "Phương trình vô số nghiệm.";
+            } else {
+                document.getElementById('kq_bai6').innerText = "Phương trình vô nghiệm.";
+            }
+        } else {
+            let x = -b / a;
+            document.getElementById('kq_bai6').innerText = `Phương trình có nghiệm duy nhất: x = ${x.toFixed(2)}`;
+        }
+    }
+
+    // --- BÀI 7 ---
+    function giaiPhuongTrinhBac2() {
+        let a = Number(document.getElementById('heSoA_B2').value);
+        let b = Number(document.getElementById('heSoB_B2').value);
+        let c = Number(document.getElementById('heSoC_B2').value);
+
+        // Check nhập đủ dữ liệu
+        if (document.getElementById('heSoA_B2').value === "" ||
+            document.getElementById('heSoB_B2').value === "" ||
+            document.getElementById('heSoC_B2').value === "") {
+            document.getElementById('kq_bai7').innerText = "Vui lòng nhập đầy đủ các hệ số a, b và c!";
+            return;
+        }
+
+        // Biện luận trường hợp a = 0 (trở thành PT bậc 1 bx + c = 0)
+        if (a === 0) {
+            if (b === 0) {
+                if (c === 0) {
+                    document.getElementById('kq_bai7').innerText = "Hệ số a=0: Phương trình vô số nghiệm.";
+                } else {
+                    document.getElementById('kq_bai7').innerText = "Hệ số a=0: Phương trình vô nghiệm.";
+                }
+            } else {
+                let x = -c / b;
+                document.getElementById('kq_bai7').innerText = `Hệ số a=0 (PT bậc 1): x = ${x.toFixed(2)}`;
+            }
+        }
+        // Trường hợp a != 0, tính Delta bình thường
+        else {
+            let delta = b * b - 4 * a * c;
+
+            if (delta < 0) {
+                document.getElementById('kq_bai7').innerText = `Delta = ${delta} < 0. Phương trình vô nghiệm.`;
+            } else if (delta === 0) {
+                let x = -b / (2 * a);
+                document.getElementById('kq_bai7').innerText = `Delta = 0. Phương trình có nghiệm kép: x = ${x.toFixed(2)}`;
+            } else {
+                let x1 = (-b + Math.sqrt(delta)) / (2 * a);
+                let x2 = (-b - Math.sqrt(delta)) / (2 * a);
+                document.getElementById('kq_bai7').innerText = `Delta = ${delta} > 0. PT có 2 nghiệm phân biệt: x1 = ${x1.toFixed(2)}, x2 = ${x2.toFixed(2)}`;
+            }
         }
     }
 </script>
